@@ -7,7 +7,9 @@
 	<key>CFBundleExecutable</key>
 	<string>Dolphin Updater</string>
 	<key>CFBundleIconFile</key>
-	<string>Dolphin.icon</string>
+	<string>Dolphin.icns</string>
+	<key>CFBundleIconName</key>
+	<string>Dolphin</string>
 	<key>CFBundleIdentifier</key>
 	<string>org.dolphin-emu.updater</string>
 	<key>CFBundleInfoDictionaryVersion</key>
