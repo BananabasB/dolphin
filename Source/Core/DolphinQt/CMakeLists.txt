@@ -631,15 +631,13 @@ if(APPLE)
   target_sources(dolphin-emu PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/qt.conf")
   set_source_files_properties("${CMAKE_CURRENT_SOURCE_DIR}/qt.conf" PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
 
-  # Copy icon into the bundle
-  file(GLOB_RECURSE liquid_glass_assets RELATIVE "${CMAKE_SOURCE_DIR}/Data" "${CMAKE_SOURCE_DIR}/Data/Dolphin.icon/*")
-  foreach(asset ${liquid_glass_assets})
-    target_sources(dolphin-emu PRIVATE "${CMAKE_SOURCE_DIR}/Data/${asset}")
-    get_filename_component(asset_dir "${asset}" DIRECTORY)
-    set_source_files_properties("${CMAKE_SOURCE_DIR}/Data/${asset}" PROPERTIES
-      MACOSX_PACKAGE_LOCATION "Resources/${asset_dir}"
-    )
-  endforeach()
+  # Copy legacy icon into the bundle (fallback)
+  target_sources(dolphin-emu PRIVATE "${CMAKE_SOURCE_DIR}/Data/Dolphin.icns")
+  set_source_files_properties("${CMAKE_SOURCE_DIR}/Data/Dolphin.icns" PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
+
+  # Copy compiled Liquid Glass asset catalog into the bundle
+  target_sources(dolphin-emu PRIVATE "${CMAKE_SOURCE_DIR}/Data/Assets.car")
+  set_source_files_properties("${CMAKE_SOURCE_DIR}/Data/Assets.car" PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
 
   # Manually include plugins
   find_package(Qt6QMacStylePlugin REQUIRED PATHS ${Qt6Widgets_DIR})
